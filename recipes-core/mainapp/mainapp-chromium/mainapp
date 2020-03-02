@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if ! read -p "press enter to stop autoboot" -t 2 ; then
+	startx /usr/bin/chromium --kiosk > /var/log/chromium.log 2>&1
+	exit 1
+fi

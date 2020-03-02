@@ -1,0 +1,13 @@
+#!/bin/sh
+
+update_remmina_configs $(lookup_servers 'WORKGROUP') &
+
+if ! test -f "/home/root/.config/samba_password_set" ; then
+	smbpasswd -a root && echo "1" > "/home/root/.config/samba_password_set"
+fi
+
+if ! read -p "press enter to stop autoboot" -t 2 ; then
+	wait
+	startx "/usr/bin/remmina" -k > "/var/log/remmina.log" 2>&1
+	exit 1
+fi

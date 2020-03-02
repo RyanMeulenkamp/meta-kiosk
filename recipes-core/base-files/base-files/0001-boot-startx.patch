@@ -1,0 +1,11 @@
+--- a/profile
++++ b/profile
+@@ -30,3 +30,8 @@
+ export PATH PS1 OPIEDIR QPEDIR QTDIR EDITOR TERM
+ 
+ umask 022
++
++if [ "${MAINAPP}" = 'true' ] && which mainapp > /dev/null ; then
++	mainapp || logout
++fi
++

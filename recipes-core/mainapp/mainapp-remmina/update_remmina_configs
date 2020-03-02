@@ -1,0 +1,15 @@
+#!/bin/sh
+
+mv "/home/${USER}/.remmina/"* "/home/${USER}/.remmina_backup/"
+
+for ip_address in "$@" ; do
+    filename="vnc_$(echo "${ip_address}" | tr '.' '-').remmina"
+
+    if test -f "/home/${USER}/.remmina_backup/${filename}" ; then
+        mv "/home/${USER}/.remmina_backup/${filename}" "/home/${USER}/.remmina/${filename}"
+    fi
+    
+    if ! test -f "/home/${USER}/.remmina/${filename}" ; then
+        sed -e "s/<ip_address>/${ip_address}/g" '/etc/template.remmina' > "/home/${USER}/.remmina/${filename}"
+    fi
+done

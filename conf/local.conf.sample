@@ -1,0 +1,51 @@
+# Local configuration for meta-kiosk images
+# Yocto Project 3.0 Poky distribution [zeus] branch
+# This is a sysvinit system
+
+# Use local version
+BBMASK = "meta-networking/recipes-kernel/wireguard"
+
+LICENSE_FLAGS_WHITELIST = "commercial"
+
+DISTRO_FEATURES = "ext2 ipv4 fbdev x11 opengl usbhost pam ${DISTRO_FEATURES_LIBC}"
+DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio"
+
+PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+
+PREFERRED_PROVIDER_udev = "eudev"
+
+SYSVINIT_ENABLED_GETTYS = "0"
+VIRTUAL-RUNTIME_init_manager = "sysvinit"
+
+MACHINE_FEATURES_remove = "apm"
+MACHINE_FEATURES_append =" vc4graphics"
+
+IMAGE_FSTYPES = "tar.xz"
+
+MACHINE = "raspberrypi3"
+
+KERNEL_IMAGETYPE = "zImage"
+
+DISABLE_VC4GRAPHICS = "1"
+DISABLE_OVERSCAN = "1"
+ENABLE_UART = "1"
+ENABLE_RPI3_SERIAL_CONSOLE = "1"
+SERIAL_CONSOLES = "115200;ttyAMA0"
+
+PREFERRED_VERSION_linux-raspberrypi = "4.19.%"
+
+DISTRO = "poky"
+PACKAGE_CLASSES = "package_ipk"
+
+# i686 or x86_64
+SDKMACHINE = "x86_64"
+
+INHERIT += "extrausers"
+EXTRA_USERS_PARAMS = "usermod -P raspberry root; "
+
+USER_CLASSES = "image-mklibs image-prelink"
+PATCHRESOLVE = "noop"
+RM_OLD_IMAGE = "1"
+INHERIT += "rm_work"
+CONF_VERSION = "1"
